@@ -5,9 +5,16 @@ import (
 	"sync"
 )
 
+type Counter struct {
+	Mutex sync.Mutex
+	Value int
+}
+
 func main() {
-	x := 0
-	var mutex sync.Mutex
+	counter := Counter{
+		Mutex: sync.Mutex{},
+		Value: 0,
+	}
 	group := &sync.WaitGroup{}
 
 	for i := 1; i <= 1000; i++ {
@@ -16,13 +23,13 @@ func main() {
 				defer group.Done()
 				group.Add(1)
 
-				mutex.Lock()
-				x = x + 1
-				mutex.Unlock()
+				counter.Mutex.Lock()
+				counter.Value = counter.Value + 1
+				counter.Mutex.Unlock()
 			}
 		}()
 	}
 
 	group.Wait()
-	fmt.Println("Counter : ", x)
+	fmt.Println("Counter : ", counter.Value)
 }
