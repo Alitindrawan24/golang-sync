@@ -1,4 +1,4 @@
-# golang-mutex
+# golang-sync
 
 Example of usage:
 - Mutex
