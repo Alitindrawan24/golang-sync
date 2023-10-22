@@ -3,3 +3,4 @@
 Example of usage:
 - Mutex
 - RW Mutex
+- Atomic
